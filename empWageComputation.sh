@@ -6,15 +6,17 @@ WAGE_PER_HOUR=20
 
 checkAttendence=$((RANDOM%3))
 
-if [	$FULL_TIME -eq $checkAttendence	]
-then
-	TOTAL_HOUR=8
-elif [ $PART_TIME -eq $checkAttendence ]
-then
-	TOTAL_HOUR=4
-else
-	TOTAL_HOUR=O
-fi
+case $checkAttendence in
+	$FULL_TIME)
+		TOTAL_HOUR=8
+		;;
+	$PART_TIME)
+		TOTAL_HOUR=4
+		;;
+	*)
+		TOTAL_HOUR=O
+		;;
+esac
 
 salary=$(($WAGE_PER_HOUR*$TOTAL_HOUR))
 echo "Daily wage of employee is "$salary
