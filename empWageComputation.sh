@@ -2,29 +2,35 @@
 
 FULL_TIME=1
 PART_TIME=2
-WAGE_PER_HOUR=20
+WAGE_PER_HOURS=20
 WORKING_DAY=20
-salary=0
+WORKING_HOURS=100
 
-for (( i=1;i<=WORKING_DAY;i++ ))
-do
-	checkAttendence=$((RANDOM%3))
+total_Working_Hours=0
+total_Working_Day=0
 
-	case $checkAttendence in
+function get_Working_Hours()
+{
+	case $1 in
 		$FULL_TIME)
-			TOTAL_HOUR=8
+			HOURS=8
 			;;
 		$PART_TIME)
-			TOTAL_HOUR=4
+			HOURS=4
 			;;
 		*)
-			TOTAL_HOUR=O
+			HOURS=0
 			;;
 	esac
+	echo $HOURS
+}
 
-	payPerDay=$(($WAGE_PER_HOUR*$TOTAL_HOUR))
-	salary=$(($salary+$payPerDay))
+while [[ (($total_Working_Hours -lt $WORKING_HOURS)) || (($total_Working_Day -lt $WORKING_DAY)) ]]
+do
+	hrs="$( get_Working_Hours $((RANDOM%3)) )"
+	total_Working_Hours=$(($total_Working_Hours+$hrs))
+	((total_Working_Day++))
 done
 
+salary=$(($WAGE_PER_HOURS*$total_Working_Hours))
 echo "Monthly wage of employee is "$salary
-
