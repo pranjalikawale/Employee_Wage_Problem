@@ -11,7 +11,7 @@ total_Working_Day=0
 
 function get_Working_Hours()
 {
-	case $1 in		
+	case $1 in
 		$FULL_TIME)
 			HOURS=8
 			;;
