@@ -9,11 +9,9 @@ WORKING_HOURS=100
 total_Working_Hours=0
 total_Working_Day=0
 
-while [[ (($total_Working_Hours -lt $WORKING_HOURS)) || (($total_Working_Day -lt $WORKING_DAY)) ]]
-do
-	checkAttendence=$((RANDOM%3))
-	
-	case $checkAttendence in
+function get_Working_Hours()
+{
+	case $1 in		
 		$FULL_TIME)
 			HOURS=8
 			;;
@@ -24,8 +22,13 @@ do
 			HOURS=0
 			;;
 	esac
+	echo $HOURS
+}
 
-	total_Working_Hours=$(($total_Working_Hours+$HOURS))
+while [[ (($total_Working_Hours -lt $WORKING_HOURS)) || (($total_Working_Day -lt $WORKING_DAY)) ]]
+do
+	hrs="$( get_Working_Hours $((RANDOM%3)) )"
+	total_Working_Hours=$(($total_Working_Hours+$hrs))
 	((total_Working_Day++))
 done
 
