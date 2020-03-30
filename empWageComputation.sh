@@ -8,6 +8,7 @@ WORKING_HOURS=100
 
 total_Working_Hours=0
 total_Working_Day=0
+declare -A daily_Wages
 
 function get_Working_Hours()
 {
@@ -36,10 +37,14 @@ while [[ (($total_Working_Hours -lt $WORKING_HOURS)) || (($total_Working_Day -lt
 do
 	hrs="$( get_Working_Hours $((RANDOM%3)) )"
 	total_Working_Hours=$(($total_Working_Hours+$hrs))
-	emp_Daily_Wages[$total_Working_Hours]="$( get_Daily_Wages $hrs)"
+	daily_Wages["Day "$total_Working_Hours]="$( get_Daily_Wages $hrs)"
 	((total_Working_Day++))
 done
 
 salary="$( get_Daily_Wages $total_Working_Hours)"
-echo "Daily Wages is "${emp_Daily_Wages[@]}
+
+echo "Daily Wages is "
+echo ${daily_Wages[@]}
+echo ${!daily_Wages[@]}
+
 echo "Total salary is "$salary
