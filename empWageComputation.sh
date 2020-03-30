@@ -33,18 +33,17 @@ function get_Daily_Wages()
 	echo $wages
 }
 
-while [[ (($total_Working_Hours -lt $WORKING_HOURS)) || (($total_Working_Day -lt $WORKING_DAY)) ]]
+while [[ (($total_Working_Hours -lt $WORKING_HOURS)) && (($total_Working_Day -lt $WORKING_DAY)) ]]
 do
 	hrs="$( get_Working_Hours $((RANDOM%3)) )"
 	total_Working_Hours=$(($total_Working_Hours+$hrs))
-	daily_Wages["Day "$total_Working_Hours]="$( get_Daily_Wages $hrs)"
 	((total_Working_Day++))
+   daily_Wages[$total_Working_Day]="$( get_Daily_Wages $hrs)"
 done
 
 salary="$( get_Daily_Wages $total_Working_Hours)"
 
-echo "Daily Wages is "
-echo ${daily_Wages[@]}
-echo ${!daily_Wages[@]}
+echo "Monthly Salary: $salary"
+echo "Day: ${!daily_Wages[@]}"
+echo "Wages Per Day: ${daily_Wages[@]}"
 
-echo "Total salary is "$salary
