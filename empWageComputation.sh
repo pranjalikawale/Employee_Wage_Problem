@@ -32,7 +32,7 @@ function get_Daily_Wages()
 	echo $wages
 }
 
-while [[ (($total_Working_Hours -lt $WORKING_HOURS)) || (($total_Working_Day -lt $WORKING_DAY)) ]]
+while [[ (($total_Working_Hours -lt $WORKING_HOURS)) && (($total_Working_Day -lt $WORKING_DAY)) ]]
 do
 	hrs="$( get_Working_Hours $((RANDOM%3)) )"
 	total_Working_Hours=$(($total_Working_Hours+$hrs))
