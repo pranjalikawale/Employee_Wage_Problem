@@ -25,12 +25,21 @@ function get_Working_Hours()
 	echo $HOURS
 }
 
+function get_Daily_Wages()
+{
+	local hrs=$1
+	wages=$(($hrs*$WAGE_PER_HOURS))
+	echo $wages
+}
+
 while [[ (($total_Working_Hours -lt $WORKING_HOURS)) || (($total_Working_Day -lt $WORKING_DAY)) ]]
 do
 	hrs="$( get_Working_Hours $((RANDOM%3)) )"
 	total_Working_Hours=$(($total_Working_Hours+$hrs))
+	emp_Daily_Wages[$total_Working_Hours]="$( get_Daily_Wages $hrs)"
 	((total_Working_Day++))
 done
 
-salary=$(($WAGE_PER_HOURS*$total_Working_Hours))
-echo "Monthly wage of employee is "$salary
+salary="$( get_Daily_Wages $total_Working_Hours)"
+echo "Daily Wages is "${emp_Daily_Wages[@]}
+echo "Total salary is "$salary
