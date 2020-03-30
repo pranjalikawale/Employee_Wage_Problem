@@ -1,16 +1,21 @@
 #!/bin/bash -x
 
-ISPRESENT=1
-checkAttendence=$((RANDOM%2))
+FULL_TIME=1
+PART_TIME=2
+WAGE_PER_HOUR=20
 
-if [	$ISPRESENT -eq $checkAttendence	]
+checkAttendence=$((RANDOM%3))
+
+if [	$FULL_TIME -eq $checkAttendence	]
 then
-	WAGE_PER_HOUR=20
 	TOTAL_HOUR=8
-	salary=$(($WAGE_PER_HOUR*$TOTAL_HOUR))
+elif [ $PART_TIME -eq $checkAttendence ]
+then
+	TOTAL_HOUR=4
 else
-	salary=O
+	TOTAL_HOUR=O
 fi
 
+salary=$(($WAGE_PER_HOUR*$TOTAL_HOUR))
 echo "Daily wage of employee is "$salary
 
